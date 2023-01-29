@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ReenLock {
     static Lock lock = new ReentrantLock();
     public static void main(String[] args) {
-        lock.lock();
+//        lock.lock();
        ReenLock.test1();
     }
 
