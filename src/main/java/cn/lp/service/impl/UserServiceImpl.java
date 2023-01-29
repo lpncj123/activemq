@@ -1,0 +1,174 @@
+package cn.lp.service.impl;
+
+import cn.lp.enums.BaseRespCodeEnum;
+import cn.lp.filter.UserAddFilter;
+import cn.lp.filter.UserVerifyFilter;
+import cn.lp.mapper.UserMapper;
+import cn.lp.mapper.UserMapper1;
+import cn.lp.model.User;
+import cn.lp.model.vo.UserVO;
+import cn.lp.service.UserService;
+import cn.lp.tools.PageResponse;
+import com.alibaba.cola.dto.Response;
+import com.alibaba.cola.dto.SingleResponse;
+import com.alibaba.cola.pattern.filter.FilterChain;
+import com.alibaba.cola.pattern.filter.FilterChainFactory;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
+import java.lang.reflect.Array;
+import java.util.*;
+
+/**
+ * @author lp
+ */
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UserMapper1 userMapper1;
+    @Override
+    public Response getUserDataList(User user) {
+        Class[] getUserData = {
+                //验证参数是否为空
+                UserVerifyFilter.class,
+                UserAddFilter.class
+
+        };
+        //创建执行链
+        FilterChain<Map> accountDataFilterChain = FilterChainFactory.buildFilterChain(getUserData);
+        Response response = new Response();
+        Map context = new HashMap();
+        context.put(Response.class.getSimpleName(),response);
+        context.put(User.class.getSimpleName(),user);
+        accountDataFilterChain.doFilter(context);
+        return response;
+    }
+
+    @Override
+    public PageResponse<User> getUserAllData(UserVO user) {
+        PageHelper.startPage(user.getCurrent(),user.getPageSize());
+        Example example = new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        if(!Objects.isNull(user)){
+            if(!Strings.isNullOrEmpty(user.getUserName())){
+                criteria.andEqualTo("userName",user.getUserName());
+            }
+            if(!Strings.isNullOrEmpty(user.getUserTelephone())){
+                criteria.andEqualTo("userTelephone",user.getUserTelephone());
+            }
+        }
+        List<User> userList = userMapper.selectByExample(example);
+        PageInfo pageInfo = new PageInfo(userList);
+        PageResponse pageResponse = new PageResponse();
+        pageResponse.setTotal(Long.valueOf(pageInfo.getTotal()).intValue());
+        pageResponse.setTotalPage(Long.valueOf(pageInfo.getPages()));
+        pageResponse.setPageSize(Long.valueOf(pageInfo.getPageSize()));
+        pageResponse.setCurrent(pageInfo.getPageNum());
+        pageResponse.setSuccess(true);
+        pageResponse.setData(userList);
+        pageResponse.setErrCode(BaseRespCodeEnum.SUCCESS.getCode());
+        pageResponse.setErrMessage(BaseRespCodeEnum.SUCCESS.getMessage());
+        return pageResponse;
+    }
+    @Override
+    public PageResponse<User> getUserAllData1() {
+        List<User> userList = userMapper.selectAll();
+        PageInfo pageInfo = new PageInfo(userList);
+        PageResponse pageResponse = new PageResponse();
+        pageResponse.setTotal(Long.valueOf(pageInfo.getTotal()).intValue());
+        pageResponse.setTotalPage(Long.valueOf(pageInfo.getPages()));
+        pageResponse.setPageSize(Long.valueOf(pageInfo.getPageSize()));
+        pageResponse.setCurrent(pageInfo.getPageNum());
+        pageResponse.setData(userList);
+        pageResponse.setSuccess(true);
+        pageResponse.setErrCode(BaseRespCodeEnum.SUCCESS.getCode());
+        pageResponse.setErrMessage(BaseRespCodeEnum.SUCCESS.getMessage());
+        return pageResponse;
+    }
+
+    @Override
+    public SingleResponse selectAllUser(User user) {
+        SingleResponse response = new SingleResponse();
+        User user1 = userMapper1.selectAllUser(user);
+        System.out.println(user1);
+        response.setData(user1);
+        response.setErrCode(BaseRespCodeEnum.SUCCESS.getCode());
+        response.setSuccess(true);
+        response.setErrMessage(BaseRespCodeEnum.SUCCESS.getMessage());
+        return response;
+
+    }
+
+    @Override
+    public Response deleteUser(Integer id) {
+        Response response = new Response();
+        int i = userMapper1.deleteUser(id);
+        if(i>0) {
+            response.setSuccess(true);
+            response.setErrCode(BaseRespCodeEnum.SUCCESS.getCode());
+            response.setErrMessage(BaseRespCodeEnum.SUCCESS.getMessage());
+        }else{
+            response.setSuccess(false);
+            response.setErrCode(BaseRespCodeEnum.FAIL.getCode());
+            response.setErrMessage(BaseRespCodeEnum.FAIL.getMessage());
+        }
+        return  response;
+    }
+
+    @Override
+    public PageResponse<User> getUserAndClass(UserVO user) {
+        System.out.println(user.getUserId());
+//        Example example = new Example(User.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        if(!Objects.isNull(user)){
+//            if(!Strings.isNullOrEmpty(String.valueOf(user.getUserId()))){
+//                criteria.andEqualTo("userId",user.getUserId());
+//            }
+//            if(!Strings.isNullOrEmpty(String.valueOf(user.getUserName()))){
+//                criteria.andLike("userName",user.getUserName()+"%");
+//
+//            }
+//        }
+        /**
+         * tk-myabtis查询直接传对象就可以，没必要判空值
+         */
+//        criteria.andEqualTo(user);
+//        List<User> users = userMapper.select(user);
+//        System.out.println(users);
+//        List<User> userList = userMapper.selectByExample(example);
+//        User user1 = UserMapperMapStruct.INSTANCE.convertUserVo(user);
+//        int i = userMapper.updateByPrimaryKey(user1);
+//        System.out.println(i);
+//        System.out.println(userList);
+//        User user1 = UserMapperMapStruct.INSTANCE.convertUserVo(user);
+//        int i = userMapper.insertSelective(user1);
+//        System.out.println(i);
+
+
+
+//        User zuser = new User("赵文龙", "15011111111", 12);
+//        User luser = new User("刘备", "15011111112", 13);
+//        List<User> list = Lists.newArrayList(zuser);
+//        int i = userMapper.insertList(list);
+//        System.out.println(i);
+        Example example = new Example(User.class);
+        example.createCriteria().andCondition("user_telephone='15011111111'");
+        example.createCriteria().andEqualTo("userAge",12);
+        example.and(example.createCriteria().andEqualTo("userName","赵文龙").orEqualTo("userName","刘备"));
+        example.setOrderByClause("user_id desc,user_telephone asc");
+//        example.setDistinct(true);
+        List<User> users = userMapper.selectByExample(example);
+        System.out.println(users);
+
+        return null;
+    }
+}

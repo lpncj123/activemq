@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lp.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="cn.lp.model.User">
+        <id column="user_id" jdbcType="Integer" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_telephone" jdbcType="VARCHAR" property="userTelephone" />
+        <result column="user_age" jdbcType="Integer" property="userAge" />
+    </resultMap>
+</mapper>

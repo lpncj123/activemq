@@ -1,0 +1,52 @@
+#
+#spring:
+#  rabbitmq:
+#    username: admin
+#    password: admin
+#    host: 192.168.111.140
+#    port: 5672
+#    listener:
+#      simple:
+#        retry:
+#          enabled: true
+#          max-attempts: 5 # ????
+#          max-interval: 10000   # ????????
+#          initial-interval: 2000  # ????????
+#          multiplier: 2 # ???????????*??=????????????????????????
+#  redis:
+#    host: 192.168.111.140
+#    port: 6379
+server:
+  port: 10099
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ENC(ZJNWYd2ESkLLRk242LOJELx/S+r6ioRp)
+    url: jdbc:mysql://192.168.11.162:3306/indexexample
+  messages:
+    basename: i18n/messages
+  application:
+    name: api
+  activemq:
+    broker-url:
+#  data:
+#    mongodb:
+#      uri:  mongodb://localhost/test
+  main:
+    allow-bean-definition-overriding: true
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#jasypt:
+#  encryptor:
+#    property: # 自定义前缀后缀
+#      prefix: "^Cyan#["     # 前缀，默认 ENC(
+#      suffix: "]$"          # 后缀，默认 )
+#    password: ${JASYPT_ENCRYPTOR_PASSWORD},
+
+logging:
+  level:
+    cn:
+      lp:
+        es=debug:

@@ -1,0 +1,15 @@
+package cn.lp.model.vo;
+
+import com.alibaba.cola.dto.PageQueryDTO;
+import lombok.Data;
+
+/**
+ * @author lp
+ */
+@Data
+public class UserVO extends PageQueryDTO {
+    private Integer userId;
+    private String userName;
+    private String userTelephone;
+    private Integer userAge;
+}
