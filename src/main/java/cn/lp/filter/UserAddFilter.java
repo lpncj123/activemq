@@ -6,13 +6,9 @@ import cn.lp.model.User;
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.pattern.filter.Filter;
 import com.alibaba.cola.pattern.filter.FilterInvoker;
-import jdk.nashorn.internal.runtime.logging.Logger;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 

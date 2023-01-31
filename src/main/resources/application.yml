@@ -50,3 +50,8 @@ logging:
     cn:
       lp:
         es=debug:
+rocketmq:
+  name-server: 192.168.111.140:9876
+  producer:
+    group: product_test
+    send-message-timeout: 5000
