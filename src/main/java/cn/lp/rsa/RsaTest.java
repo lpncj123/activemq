@@ -45,11 +45,12 @@ public class RsaTest {
       "cJ+1AQIDAQAB";
   public static void main(String[] args) throws UnsupportedEncodingException {
     String data="我是数据";
-    String dataSign="我是签名";
+    String dataSign="我是需要签名的数据";
     String keyStr = RandomUtil.randomString(16);
     log.info("加密签名16位{}",keyStr);
     byte[] key = keyStr.getBytes(StandardCharsets.UTF_8);
     RSA rsa= SecureUtil.rsa(privateKe,publickey);
+    //公钥加密
     byte[] keyRsa = rsa.encrypt(key, KeyType.PublicKey);
     String dataAes = SecureUtil.aes(key).encryptBase64(data);
     log.info("加密成功数据{}",dataAes);

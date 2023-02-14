@@ -40,8 +40,7 @@ public class AsyncProducer {
             }
         } // end-for
         // sleep一会儿
-        // 由于采用的是异步发送，所以若这里不sleep，
-        // 则消息还未发送就会将producer给关闭，报错
+        // 由于采用的是异步发送，所以若这里不sleep，则消息还未发送就会将producer给关闭，报错
         TimeUnit.SECONDS.sleep( 3 );
         producer.shutdown();
     }
