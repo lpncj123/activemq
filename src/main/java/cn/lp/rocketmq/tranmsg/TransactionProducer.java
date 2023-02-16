@@ -41,5 +41,6 @@ public class TransactionProducer {
             SendResult sendResult =producer.sendMessageInTransaction(msg,null);
             System.out.println("发送结果为：" +sendResult.getSendStatus());
         }
+        producer.shutdown();
     }
 }

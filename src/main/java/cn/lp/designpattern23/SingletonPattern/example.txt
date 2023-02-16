@@ -1,0 +1,47 @@
+线程池单例模式可以用于管理全局共享的线程池资源，以便于在不同的业务场景中重用这些资源，提高系统的性能和资源利用率。
+下面是一个简单的线程池单例模式的例子：
+public class ThreadPoolManager {
+
+    private static ThreadPoolManager instance;
+    private ExecutorService executor;
+    private ThreadPoolManager() {
+        // 初始化线程池
+        executor = Executors.newFixedThreadPool(10);
+    }
+    public synchronized static ThreadPoolManager getInstance() {
+        if (instance == null) {
+            instance = new ThreadPoolManager();
+        }
+        return instance;
+    }
+    public void execute(Runnable task) {
+        executor.execute(task);
+    }
+    // 其他线程池操作方法，比如shutdown等
+}
+上述例子中，ThreadPoolManager 是单例类，通过私有构造函数实现类的实例化，同时提供了一个静态的 getInstance() 方法，用于获取该单例对象。在 getInstance() 方法中使用了双重检查锁定的方式，保证了线程安全性。
+该例子还包括了一个 execute() 方法，用于提交任务到线程池中执行。通过调用该方法，业务代码可以将需要异步执行的任务交给线程池来处理。
+该例子中使用了 ExecutorService 接口提供的线程池实现，其中 newFixedThreadPool(10) 创建了一个固定大小为 10 的线程池。可以根据实际的业务需求来选择不同的线程池实现和参数配置。
+
+
+
+
+
+枚举实现线程池单例模式，示例代码如下：
+public enum ThreadPoolManager {
+    INSTANCE;
+
+    private final ExecutorService threadPool;
+
+    private ThreadPoolManager() {
+        threadPool = Executors.newFixedThreadPool(10);
+    }
+
+    public static ThreadPoolManager getInstance() {
+        return INSTANCE;
+    }
+
+    public ExecutorService getThreadPool() {
+        return threadPool;
+    }
+}

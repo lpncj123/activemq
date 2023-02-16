@@ -1,0 +1,79 @@
+损坏单例的两种办法：序列化和反射
+1.针对静态内部类的单例
+public class Singleton implements Serializable {
+
+    //私有构造方法
+    private Singleton() {}
+
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+
+    //对外提供静态方法获取该对象
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+
+
+public class Test {
+    public static void main(String[] args) throws Exception {
+        //往文件中写对象
+        //writeObject2File();
+        //从文件中读取对象
+        Singleton s1 = readObjectFromFile();
+        Singleton s2 = readObjectFromFile();
+
+        //判断两个反序列化后的对象是否是同一个对象
+        System.out.println(s1 == s2);
+    }
+
+    private static Singleton readObjectFromFile() throws Exception {
+        //创建对象输入流对象
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Users\\Think\\Desktop\\a.txt"));
+        //第一个读取Singleton对象
+        Singleton instance = (Singleton) ois.readObject();
+
+        return instance;
+    }
+
+    public static void writeObject2File() throws Exception {
+        //获取Singleton类的对象
+        Singleton instance = Singleton.getInstance();
+        //创建对象输出流
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Think\\Desktop\\a.txt"));
+        //将instance对象写出到文件中
+        oos.writeObject(instance);
+    }
+}
+上面代码运行结果是false，表明序列化和反序列化已经破坏了单例设计模式。
+需要注意的是，为了保证反序列化出的对象仍然是单例，Singleton 类必须实现 readResolve() 方法，将反序列化出来的对象替换为单例对象。否则，反序列化出的对象可能会和之前创建的单例对象不同。
+
+原因：这是因为序列化和反序列化过程中会重新创建一个新的对象，而不是直接使用原有的单例对象。在反序列化时，会使用反射机制创建一个新的对象，这个对象与原有的单例对象不同，因为它们是两个不同的对象。
+
+如果要让反序列化得到的对象与单例对象相同，可以在单例类中添加readResolve方法，这样在反序列化时就会返回单例对象。以下是一个示例代码：
+private Object readResolve() throws ObjectStreamException {
+    return getInstance();
+}
+
+
+反射破坏（对于双重校验单例）：
+public class Test {
+    public static void main(String[] args) throws Exception {
+        //获取Singleton类的字节码对象
+        Class clazz = Singleton.class;
+        //获取Singleton类的私有无参构造方法对象
+        Constructor constructor = clazz.getDeclaredConstructor();
+        //取消访问检查
+        constructor.setAccessible(true);
+
+        //创建Singleton类的对象s1
+        Singleton s1 = (Singleton) constructor.newInstance();
+        //创建Singleton类的对象s2
+        Singleton s2 = (Singleton) constructor.newInstance();
+
+        //判断通过反射创建的两个Singleton对象是否是同一个对象
+        System.out.println(s1 == s2);
+    }
+}
+枚举不会出现这两个问题
