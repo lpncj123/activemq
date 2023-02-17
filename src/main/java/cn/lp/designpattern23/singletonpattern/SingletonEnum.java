@@ -1,4 +1,4 @@
-package cn.lp.designpattern23.SingletonPattern;
+package cn.lp.designpattern23.singletonpattern;
 
 /**
  * @author lp

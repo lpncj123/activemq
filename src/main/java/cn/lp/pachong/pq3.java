@@ -1,4 +1,4 @@
-package cn.lp.paqu;
+package cn.lp.pachong;
 
 import cn.lp.model.PcBean;
 import com.gargoylesoftware.htmlunit.BrowserVersion;

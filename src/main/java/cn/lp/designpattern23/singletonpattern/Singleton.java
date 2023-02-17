@@ -1,4 +1,4 @@
-package cn.lp.designpattern23.SingletonPattern;
+package cn.lp.designpattern23.singletonpattern;
 
 public class Singleton {
     /**
@@ -87,6 +87,10 @@ public class Singleton {
     private static Singleton getInstance() {
         if (instance == null) {
             synchronized (Singleton.class){
+            //没有这个判断的问题
+            //当一个线程还没有实例化Singleton时另一个线程执行到if(instance==null)这个判断语句时就会进入if语句，虽然加了锁，
+            //但是等到第一个线程执行完instance=new Singleton()跳出这个锁时，
+            //另一个进入if语句的线程同样会实例化另外一个Singleton对象，
                 if(instance==null){
                     return new Singleton();
                 }
