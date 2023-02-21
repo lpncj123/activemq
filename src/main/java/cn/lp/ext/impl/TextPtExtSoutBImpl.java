@@ -9,6 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 public class TextPtExtSoutBImpl implements TestExtPt {
     @Override
     public void testExten(String s) {
-        log.info("B执行成功：{}",s);;
+        log.info("B执行成功：{}",s);
     }
 }

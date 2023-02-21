@@ -17,6 +17,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ import java.util.*;
  * @author lp
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -67,7 +69,9 @@ public class UserServiceImpl implements UserService {
             }
         }
         List<User> userList = userMapper.selectByExample(example);
+        log.info("放入前userList：{}",userList);
         PageInfo pageInfo = new PageInfo(userList);
+        log.info("放入后userList：{}",userList);
         PageResponse pageResponse = new PageResponse();
         pageResponse.setTotal(Long.valueOf(pageInfo.getTotal()).intValue());
         pageResponse.setTotalPage(Long.valueOf(pageInfo.getPages()));

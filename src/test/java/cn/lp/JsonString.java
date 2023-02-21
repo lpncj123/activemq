@@ -66,6 +66,6 @@ public class JsonString {
                 "}";
 
         ThreeElements threeElements = JSON.parseObject(s, new TypeReference<ThreeElements>() {});
-        System.out.println(threeElements.getResult().getActualCapital());
+        System.out.println(threeElements.getResult().get("regInstitute"));
     }
 }

@@ -15,6 +15,9 @@ public class TestActionServiceImpl implements TestActionService {
     @Override
     public Action<StatesEnum, EventsEnum, StatementContext> updateChannelOrderAction() {
         return (from, to, event, ctx)->{
+            log.info("from:{}",from);
+            log.info("to:{}",to);
+            log.info("event:{}",event);
             log.info("读取到的信息：{}", JSON.toJSONString(ctx));
             log.info("更新数据库成功");
         };
