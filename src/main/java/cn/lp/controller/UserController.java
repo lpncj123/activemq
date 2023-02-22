@@ -7,8 +7,10 @@ import cn.lp.tools.PageResponse;
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.dto.SingleResponse;
 import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -46,6 +48,17 @@ public class UserController {
     @RequestMapping(value = "/test/getUserAndClass",method = RequestMethod.POST)
     public Response getUserAndClass(@RequestBody UserVO user){
         return userService.getUserAndClass(user);
+    }
+
+    @RequestMapping(value = "/test/verification",method = RequestMethod.POST)
+    public Response verification(@RequestBody UserVO user){
+        return userService.verification(user);
+    }
+
+    @ApiOperation(value = "Hello World API", notes = "Say hello to the world")
+    @RequestMapping(value = "/test/verificationAnno",method = RequestMethod.POST)
+    public Response verificationAnno(@Validated @RequestBody  UserVO user){
+        return userService.verificationAnno(user);
     }
 
 

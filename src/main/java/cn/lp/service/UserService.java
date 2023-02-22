@@ -11,6 +11,7 @@ public interface UserService {
     Response getUserDataList(User user);
 
     PageResponse<User> getUserAllData(UserVO user);
+
     PageResponse<User> getUserAllData1();
 
     SingleResponse<User> selectAllUser(User user);
@@ -19,4 +20,9 @@ public interface UserService {
 
 
     PageResponse<User> getUserAndClass(UserVO user);
+
+
+    Response verification(UserVO user);
+
+    Response verificationAnno(UserVO user);
 }
