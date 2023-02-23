@@ -1,4 +1,4 @@
-package cn.lp.config;
+package cn.lp.utils;
 
 public class SleepUtils {
     public static void sleep(int second) {

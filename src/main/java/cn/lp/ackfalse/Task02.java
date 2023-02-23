@@ -1,7 +1,7 @@
 package cn.lp.ackfalse;
 
 
-import cn.lp.config.RabbitMqUtils;
+import cn.lp.utils.RabbitMqUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConfirmCallback;
 

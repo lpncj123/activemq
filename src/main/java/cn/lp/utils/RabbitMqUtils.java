@@ -1,4 +1,4 @@
-package cn.lp.config;
+package cn.lp.utils;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

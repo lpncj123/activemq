@@ -3,7 +3,7 @@ package cn.lp.service;
 
 import cn.lp.model.User;
 import cn.lp.model.vo.UserVO;
-import cn.lp.tools.PageResponse;
+import cn.lp.utils.PageResponse;
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.dto.SingleResponse;
 

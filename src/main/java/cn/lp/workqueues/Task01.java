@@ -1,6 +1,6 @@
 package cn.lp.workqueues;
 
-import cn.lp.config.RabbitMqUtils;
+import cn.lp.utils.RabbitMqUtils;
 import com.rabbitmq.client.Channel;
 
 import java.util.Scanner;

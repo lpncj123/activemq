@@ -1,4 +1,4 @@
-package cn.lp.tools;
+package cn.lp.utils;
 
 import com.alibaba.cola.dto.MultiResponse;
 import lombok.Data;

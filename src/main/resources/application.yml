@@ -56,6 +56,3 @@ rocketmq:
   producer:
     group: product_test
     send-message-timeout: 5000
-springfox.documentation.swagger.v2.path: /swagger2-api.html
-swagger:
-    enabled: true

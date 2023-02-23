@@ -8,7 +8,7 @@ import cn.lp.mapper.UserMapper1;
 import cn.lp.model.User;
 import cn.lp.model.vo.UserVO;
 import cn.lp.service.UserService;
-import cn.lp.tools.PageResponse;
+import cn.lp.utils.PageResponse;
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.dto.SingleResponse;
 import com.alibaba.cola.pattern.filter.FilterChain;
@@ -197,10 +197,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response verificationAnno(UserVO user) {
         try{
-            int i = 1/0;
             return Response.buildFailure("00000000","正确");
         }catch (Exception e){
-            log.info("校验参数异常：{}",e);
             return Response.buildFailure("00000001","错误");
         }
 

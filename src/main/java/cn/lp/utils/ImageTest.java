@@ -1,4 +1,4 @@
-package cn.lp.tools;
+package cn.lp.utils;
 
 import sun.misc.BASE64Encoder;
 
