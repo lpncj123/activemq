@@ -1,6 +1,6 @@
 package cn.lp.enums;
 
-import cn.lp.tools.MessageUtils;
+import cn.lp.utils.MessageUtils;
 import com.alibaba.cola.domain.ApplicationContextHelper;
 
 

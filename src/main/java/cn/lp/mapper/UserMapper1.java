@@ -2,9 +2,7 @@ package cn.lp.mapper;
 
 
 import cn.lp.model.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 public interface UserMapper1{
   /**
@@ -16,6 +14,12 @@ public interface UserMapper1{
       "and user_id=#{user.userId}" +
       "</if>" +
       "</script>")
+//  @Results({
+//      @Result(property = "userId", column = "user_id", id = true),
+//      @Result(property = "userName", column = "user_name"),
+//      @Result(property = "userTelephone", column = "user_telephone"),
+//      @Result(property = "userAge", column = "user_age")
+//  })
   User selectAllUser(@Param("user") User user);
 
 

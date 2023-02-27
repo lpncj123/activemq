@@ -1,7 +1,6 @@
 package cn.lp.ackfalse;
-
-import cn.lp.config.RabbitMqUtils;
-import cn.lp.config.SleepUtils;
+import cn.lp.utils.RabbitMqUtils;
+import cn.lp.utils.SleepUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DeliverCallback;
 

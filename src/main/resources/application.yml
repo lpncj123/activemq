@@ -30,14 +30,15 @@ spring:
     name: api
   activemq:
     broker-url:
-#  data:
-#    mongodb:
-#      uri:  mongodb://localhost/test
+  data:
+    mongodb:
+      uri: mongodb://192.168.11.162:27017/test
   main:
     allow-bean-definition-overriding: true
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
 #jasypt:
 #  encryptor:
 #    property: # 自定义前缀后缀
