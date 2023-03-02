@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Signature {
 //    private static final int WIDTH = 300; // 签章宽度
     private static final int HEIGHT = 200; // 签章高度
-    private static final String TEXT = "四个大字"; // 签章文本
+    private static final String TEXT = "刘鹏"; // 签章文本
     private static final int CHAR_SPACING = 30; // 固定字符间距
     public static void main(String[] args) {
         int chineseCharCount = 0;
@@ -39,30 +39,11 @@ public class Signature {
         g2d.drawRect(0, 0, WIDTH - 1, HEIGHT - 1);
         g2d.drawRect(1, 1, WIDTH - 3, HEIGHT - 3);
 
-        // 绘制签章文本
-//        g2d.setFont(new Font("宋体", Font.BOLD, 70));
-//        g2d.setColor(Color.RED);
-//        int textWidth = g2d.getFontMetrics().stringWidth(TEXT);
-////        int leading = g2d.getFontMetrics().getLeading();
-//        g2d.drawString(TEXT, (WIDTH - textWidth) / 2, HEIGHT / 2 + g2d.getFontMetrics().getAscent() / 2);
-
-
-//        g2d.setFont(new Font("宋体", Font.BOLD, 70));
-//        g2d.setColor(Color.RED);
-//        FontRenderContext frc = g2d.getFontRenderContext();
-//        Rectangle2D bounds = g2d.getFont().getStringBounds(TEXT, frc);
-//        double charWidth = bounds.getWidth() / TEXT.length();
-//        for (int i = 0; i < TEXT.length(); i++) {
-//            String c = String.valueOf(TEXT.charAt(i));
-//            double charX = (WIDTH - bounds.getWidth()) / 2 + i * (charWidth + CHAR_SPACING);
-//            double charY = HEIGHT / 2 + g2d.getFontMetrics().getAscent() / 2;
-//            g2d.drawString(c, (float)charX, (float)charY);
-//        }
 
 
 
 
-        g2d.setFont(new Font("宋体", Font.BOLD, 70));
+        g2d.setFont(new Font("宋体", Font.BOLD, 80));
         g2d.setColor(Color.RED);
         String[] chars = TEXT.split("");
         int[] charWidths = new int[chars.length];
@@ -71,7 +52,7 @@ public class Signature {
             charWidths[i] = g2d.getFontMetrics().charWidth(chars[i].charAt(0));
             totalWidth += charWidths[i];
         }
-        int charSpacing = totalWidth / (2 * chars.length - 1); // 字符间隔为字符宽度的一半
+        int charSpacing = totalWidth / (5 * chars.length - 1); // 字符间隔为字符宽度的一半
         int x = (WIDTH - totalWidth - (chars.length - 1) * charSpacing) / 2; // 计算文本的起始 x 坐标
         int y = HEIGHT / 2 + g2d.getFontMetrics().getAscent() / 2; // 计算文本的 y 坐标
         for (int i = 0; i < chars.length; i++) {
