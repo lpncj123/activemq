@@ -1,6 +1,5 @@
 package cn.lp;
 
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -67,7 +66,6 @@ public class LockSupportTest {
             System.out.println(Thread.currentThread().getName() + "\t" + "------被唤醒");
         }, "A");
         a.start();
-
         new Thread(() -> {
             try {
                 TimeUnit.SECONDS.sleep(1L);
