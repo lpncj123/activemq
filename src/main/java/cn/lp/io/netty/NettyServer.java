@@ -29,12 +29,19 @@ public class NettyServer {
         EventLoopGroup workerGroup = new NioEventLoopGroup(); //8
 
 
-
         try {
             //创建服务器端的启动对象，配置参数
             ServerBootstrap bootstrap = new ServerBootstrap();
 
             //使用链式编程来进行设置
+            /**
+             *bootstrap.group(bossGroup, workerGroup)：设置两个线程组，一个是用于接收客户端连接的 boss 线程组，另一个是用于处理客户端连接请求的 worker 线程组。
+             * channel(NioServerSocketChannel.class)：设置服务端使用的通道实现为 NioServerSocketChannel，这是 Netty 封装的基于 Java NIO 的 SocketChannel。
+             * option(ChannelOption.SO_BACKLOG, 128)：设置服务端监听的端口可以接受的客户端连接数，即等待连接的队列长度。
+             * childOption(ChannelOption.SO_KEEPALIVE, true)：设置客户端连接的 TCP 会话保持活跃状态。
+             * childHandler(new ChannelInitializer<SocketChannel>() { ... }：用于初始化客户端连接的 ChannelPipeline，当一个新的客户端连接建立时，Netty 会创建一个新的 NioSocketChannel 对象，然后调用该 ChannelInitializer 的 initChannel() 方法初始化新创建的 Channel 的 ChannelPipeline。其中，SocketChannel 表示客户端连接的通道实现。
+             * ch.pipeline().addLast(new NettyServerHandler())：向客户端连接的 ChannelPipeline 中添加自定义的业务处理器，即 NettyServerHandler。
+             **/
             bootstrap.group(bossGroup, workerGroup) //设置两个线程组
                 .channel(NioServerSocketChannel.class) //使用NioSocketChannel 作为服务器的通道实现
                 .option(ChannelOption.SO_BACKLOG, 128) // 设置线程队列等待连接个数
@@ -71,7 +78,7 @@ public class NettyServer {
 
             //对关闭通道事件  进行监听
             cf.channel().closeFuture().sync();
-        }finally {
+        } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
