@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Signature {
 //    private static final int WIDTH = 300; // 签章宽度
     private static final int HEIGHT = 200; // 签章高度
-    private static final String TEXT = "刘鹏"; // 签章文本
+    private static final String TEXT = "李四"; // 签章文本
     private static final int CHAR_SPACING = 30; // 固定字符间距
     public static void main(String[] args) {
         int chineseCharCount = 0;
