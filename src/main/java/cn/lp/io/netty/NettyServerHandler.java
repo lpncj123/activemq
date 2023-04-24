@@ -104,6 +104,13 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("Exception occurred, close the channel and release resources.");
         ctx.close();
     }
+    /**
+     * @description: 当一个 Channel 的连接被关闭或者断开时，它的状态会从 ACTIVE 变为 INACTIVE，此时 channelInactive() 方法就会被调用。在这个方法中，可以进行一些资源释放、清理等操作。
+     * @author: lp
+     * @date: 2023/3/28 16:07
+     * @param: [ctx]
+     * @return: void
+     **/
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("Channel is inactive, close the channel and release resources.");
