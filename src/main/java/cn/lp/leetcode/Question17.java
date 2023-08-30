@@ -37,7 +37,9 @@ public class Question17 {
         if(index==digits.length()){
             combinations.add(combination.toString());
         }else{
+            // 拿到电话号对应的字母
             String s = phoneMap.get(digits.charAt(index));
+            //去到数字对应字母的长度
             int length = s.length();
             for (int i = 0; i < length; i++) {
                 combination.append(s.charAt(i));
