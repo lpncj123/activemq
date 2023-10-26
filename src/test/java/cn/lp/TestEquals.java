@@ -28,5 +28,9 @@ public class TestEquals {
         System.out.println(s.hashCode());
         System.out.println(s.hashCode() >>> 16);
         System.out.println(i);
+        String str2 = new StringBuilder("ja").append("va").toString();
+        System.out.println(str2);
+        System.out.println(str2.intern());
+        System.out.println(str2 == str2.intern());
     }
 }

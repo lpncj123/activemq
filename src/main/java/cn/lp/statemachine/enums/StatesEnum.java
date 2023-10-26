@@ -2,12 +2,6 @@ package cn.lp.statemachine.enums;
 
 import lombok.Getter;
 
-/**
- * @program: chinagpaywork
- * @description: 状态枚举类
- * @author: KaiKai.Li
- * @date: 2022-06-16 15:09
- **/
 @Getter
 public enum StatesEnum {
     /**
