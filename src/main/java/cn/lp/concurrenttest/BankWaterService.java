@@ -1,4 +1,4 @@
-package cn.lp.concurrentart;
+package cn.lp.concurrenttest;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

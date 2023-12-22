@@ -13,26 +13,29 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.Map;
+
 @Component
-public class UserAddFilter implements Filter<Map>{
+public class UserAddFilter implements Filter<Map> {
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private TransactionTemplate transactionTemplate;
+
     @Override
     public void doFilter(Map map, FilterInvoker filterInvoker) {
         User user = (User) map.get(User.class.getSimpleName());
         Response response = (Response) map.get(Response.class.getSimpleName());
+//      没有返回值的局部手动事务回滚
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             public void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                try{
+                try {
                     userMapper.insert(user);
-                    int i=1/0;
+                    int i = 1 / 0;
                     response.setSuccess(true);
                     response.setErrCode(BaseRespCodeEnum.SUCCESS.getCode());
                     response.setErrMessage(BaseRespCodeEnum.SUCCESS.getMessage());
-                }catch (Exception e){
+                } catch (Exception e) {
                     response.setSuccess(false);
                     response.setErrCode(BaseRespCodeEnum.FAIL.getCode());
                     response.setErrMessage(BaseRespCodeEnum.FAIL.getMessage());
@@ -40,6 +43,15 @@ public class UserAddFilter implements Filter<Map>{
                 }
             }
         });
+        //有返回值的局部手动事务回滚
+//        transactionTemplate.execute(new TransactionCallback<Object>() {
+//
+//            @Override
+//            public Object doInTransaction(TransactionStatus transactionStatus) {
+//                transactionStatus.setRollbackOnly();
+//                return "1111";
+//            }
+//        });
 
 
     }

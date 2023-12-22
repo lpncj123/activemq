@@ -1,9 +1,8 @@
-package cn.lp.concurrentart;
+package cn.lp.concurrenttest;
 
 import cn.lp.utils.SleepUtils;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 
 /**
  * @BelongsProject: activemq

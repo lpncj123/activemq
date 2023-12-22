@@ -1,4 +1,4 @@
-package cn.lp.concurrentart;
+package cn.lp.concurrenttest;
 
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.ExecutorService;

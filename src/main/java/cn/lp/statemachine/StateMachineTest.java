@@ -22,6 +22,7 @@ public class StateMachineTest {
 
     /***
      * 创建订单服务
+     * 如果状态是CHANNEL_ORDER_PROCESSING，匹配到当前状态机，然后执行when里面的方法，如果返回true，状态返回成功，状态转换成功并且调用perform里面的方法
      */
     @PostConstruct
     public void creteTestStateMachine() throws Exception {

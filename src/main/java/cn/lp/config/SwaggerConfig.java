@@ -1,6 +1,7 @@
 package cn.lp.config;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -10,7 +11,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
  * @BelongsProject: activemq
@@ -20,11 +21,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Description: TODO
  * @Version: 1.0
  */
-@EnableKnife4j
 @Configuration
-@EnableSwagger2
+@EnableSwagger2WebMvc
 public class SwaggerConfig {
+    private final OpenApiExtensionResolver openApiExtensionResolver;
 
+    @Autowired
+    public SwaggerConfig(OpenApiExtensionResolver openApiExtensionResolver) {
+        this.openApiExtensionResolver = openApiExtensionResolver;
+    }
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -34,7 +39,8 @@ public class SwaggerConfig {
             .select()
             .apis(RequestHandlerSelectors.basePackage("cn.lp.controller"))
             .paths(PathSelectors.any())
-            .build();
+            .build()
+            .extensions(openApiExtensionResolver.buildExtensions("1.2.x"));
     }
     private ApiInfo apiInfo(String desc) {
         return new ApiInfoBuilder()

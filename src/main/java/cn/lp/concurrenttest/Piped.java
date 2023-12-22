@@ -1,4 +1,4 @@
-package cn.lp.concurrentart;
+package cn.lp.concurrenttest;
 
 import java.io.IOException;
 import java.io.PipedReader;

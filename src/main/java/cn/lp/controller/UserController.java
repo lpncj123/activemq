@@ -34,9 +34,9 @@ public class UserController {
         PageResponse<User> userAllData = userService.getUserAllData(user);
         return userAllData;
     }
-
+    @ApiOperation(value = "测试查询字符串返回方法", notes = "传入字符串返回",tags = "测试方法")
     @RequestMapping(value = "/test/string",method = RequestMethod.GET)
-    public String getStringJson(@RequestParam String jsonString){
+    public String getStringJson( String jsonString){
         return jsonString;
     }
 
