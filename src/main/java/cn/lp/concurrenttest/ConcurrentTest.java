@@ -1,4 +1,4 @@
-package cn.lp.concurrentart;
+package cn.lp.concurrenttest;
 
 /**
  * @BelongsProject: activemq

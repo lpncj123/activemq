@@ -1,4 +1,4 @@
-package cn.lp.concurrentart;
+package cn.lp.concurrenttest;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
