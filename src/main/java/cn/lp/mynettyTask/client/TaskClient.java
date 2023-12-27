@@ -1,12 +1,18 @@
 package cn.lp.mynettyTask.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * @BelongsProject: activemq
@@ -30,7 +36,10 @@ public class TaskClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast( new ClientHandler()); //加入自己的处理器
+                        ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast("decoder", new StringDecoder());
+                        pipeline.addLast("encoder", new StringEncoder());
+                        pipeline.addLast(new SimpleClientHandler()); //加入自己的处理器
                     }
                 });
 
@@ -38,9 +47,19 @@ public class TaskClient {
 
             //启动客户端去连接服务器端
             //关于 ChannelFuture 要分析，涉及到netty的异步模型
-            ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 7000).sync();
-            channelFuture.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
+//            ChannelFuture channelFuture = bootstrap.connect("localhost", 7000).sync();
+//            channelFuture.channel().closeFuture().sync();
+            Channel channel = bootstrap.connect("localhost", 7000).sync().channel();
+
+//             从控制台读取输入并发送到服务器
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                String message = reader.readLine();
+                if (message != null && !message.isEmpty()) {
+                    channel.writeAndFlush(message + "\n");
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
 
