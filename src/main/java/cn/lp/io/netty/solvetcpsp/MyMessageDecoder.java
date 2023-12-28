@@ -21,6 +21,7 @@ public class MyMessageDecoder extends ReplayingDecoder<Void> {
         System.out.println();
         System.out.println("MyMessageDecoder decode 被调用");
         //需要将得到二进制字节码-> MessageProtocol 数据包(对象)
+//        这里的关键是 ReplayingDecoder 会在读取字节时自动进行判断，如果字节不足，它会等待更多的字节到来，直到足够的字节被读取。
         int length = in.readInt();
 
         byte[] content = new byte[length];
