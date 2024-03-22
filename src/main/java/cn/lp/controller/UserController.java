@@ -64,6 +64,12 @@ public class UserController {
         return userService.verificationAnno(user);
     }
 
+    @ApiOperation(value = "插入用户", notes = "校验事务",tags = "参数测试")
+    @RequestMapping(value = "/test/insertUser",method = RequestMethod.POST)
+    public void insertUser(@RequestBody User user){
+        userService.insertUser(user);
+    }
+
 
 
 }
