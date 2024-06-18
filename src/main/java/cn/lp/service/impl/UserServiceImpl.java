@@ -208,7 +208,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void insertUser(User user) {
         try {
             userMapper.insert(user);
