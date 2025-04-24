@@ -3,6 +3,8 @@ package cn.lp.controller;
 import cn.lp.model.User;
 import cn.lp.model.vo.UserVO;
 import cn.lp.service.UserService;
+import cn.lp.springeventexample.PublishEvent;
+import cn.lp.springeventexample.my.UserPublishEvent;
 import cn.lp.utils.PageResponse;
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.dto.SingleResponse;
@@ -11,8 +13,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -22,6 +28,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PublishEvent publishEvent;
+    @Autowired
+    private UserPublishEvent userPublishEvent;
     @RequestMapping(value = "/test/verify",method = RequestMethod.POST)
     public Response getUserData(@RequestBody User user){
         Response userDataList = userService.getUserDataList(user);
@@ -64,6 +74,23 @@ public class UserController {
         return userService.verificationAnno(user);
     }
 
+    @ApiOperation(value = "插入用户", notes = "校验事务",tags = "参数测试")
+    @RequestMapping(value = "/test/insertUser",method = RequestMethod.POST)
+    public void insertUser(@RequestBody User user){
+        userService.insertUser(user);
+    }
 
+    @RequestMapping("pub")
+    public void pub() {
+        for (int i = 0; i < 5; i++) {
+            publishEvent.publish("你若为我繁华，你好呀：" + (i + 1));
+        }
+    }
+    @RequestMapping("pub1")
+    @Transactional
+    public void pub1() {
+        userPublishEvent.publish(222, "lp", "123456", 18);
+        int i = 1 / 0;
+    }
 
 }

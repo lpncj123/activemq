@@ -1,5 +1,4 @@
 package cn.lp.designpattern23.adaptermodepattern;
-
 public class Client {
     public static void main(String[] args) {
         Computer computer = new Computer();

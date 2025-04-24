@@ -25,4 +25,9 @@ public interface UserService {
     Response verification(UserVO user);
 
     Response verificationAnno(UserVO user);
+
+    void insertUser(User user);
+    void insertUser1(UserVO user);
+
+    void insertUserV2(User user);
 }

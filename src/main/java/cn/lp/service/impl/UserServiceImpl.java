@@ -18,8 +18,11 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.HashMap;
@@ -185,22 +188,49 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response verification(UserVO user) {
         try {
-            Preconditions.checkNotNull(user.getUserAge(),"年龄不能为空");
-            Preconditions.checkNotNull(user.getUserId(),"年龄不能为空");
-        }catch(Exception e){
-            log.info("校验发生异常 :{}",e.getMessage());
-            return Response.buildFailure("00000001","错误");
+            Preconditions.checkNotNull(user.getUserAge(), "年龄不能为空");
+            Preconditions.checkNotNull(user.getUserId(), "年龄不能为空");
+        } catch (Exception e) {
+            log.info("校验发生异常 :{}", e.getMessage());
+            return Response.buildFailure("00000001", "错误");
         }
-        return Response.buildFailure("00000000","正确");
+        return Response.buildFailure("00000000", "正确");
     }
 
     @Override
     public Response verificationAnno(UserVO user) {
-        try{
-            return Response.buildFailure("00000000","正确");
-        }catch (Exception e){
-            return Response.buildFailure("00000001","错误");
+        try {
+            return Response.buildFailure("00000000", "正确");
+        } catch (Exception e) {
+            return Response.buildFailure("00000001", "错误");
         }
+
+    }
+
+    @Override
+    public void insertUser(User user) {
+        try {
+            userMapper.insert(user);
+            insertUserV2(user);
+        } catch (Exception e) {
+            log.info("error-->", e);
+        }
+    }
+
+    @Override
+    public void insertUser1(UserVO user) {
+        User user1 = new User();
+        BeanUtils.copyProperties(user, user1);
+        userMapper.insert(user1);
+    }
+
+    @Override
+    @Transactional( propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    public void insertUserV2(User user) {
+
+        userMapper.insert(user);
+        int i = 1 / 0;
+
 
     }
 }

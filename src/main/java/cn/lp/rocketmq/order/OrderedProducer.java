@@ -18,6 +18,7 @@ public class OrderedProducer {
             byte[] body = ("Hi," + i).getBytes();
             Message msg = new Message("TopicA", "TagA", body);
             SendResult sendResult = producer.send(msg, new MessageQueueSelector() {
+//                Object:orderId
                 @Override
                 public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
                     Integer id = (Integer) arg;
