@@ -1,4 +1,4 @@
-package cn.lp.designpattern23.proxypattern.dynamicproxy;
+package cn.lp.designpattern23.proxypattern.dynamicproxyjdk;
 
 public class TrainStation implements SellTickets {
     @Override

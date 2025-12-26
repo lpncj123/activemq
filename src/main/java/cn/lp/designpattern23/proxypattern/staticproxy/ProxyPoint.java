@@ -1,6 +1,6 @@
 package cn.lp.designpattern23.proxypattern.staticproxy;
 
-import cn.lp.designpattern23.proxypattern.dynamicproxy.SellTickets;
+import cn.lp.designpattern23.proxypattern.dynamicproxyjdk.SellTickets;
 
 public class ProxyPoint implements SellTickets {
     private TrainStation station = new TrainStation();

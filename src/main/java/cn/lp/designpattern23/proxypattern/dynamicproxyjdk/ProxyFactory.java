@@ -1,4 +1,4 @@
-package cn.lp.designpattern23.proxypattern.dynamicproxy;
+package cn.lp.designpattern23.proxypattern.dynamicproxyjdk;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

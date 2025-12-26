@@ -64,6 +64,7 @@ public class ForkJoinSumExample {
 
         // 创建并执行 SumTask
         SumTask task = new SumTask(array, 0, array.length);
+        System.out.println(array.length);
         long result = forkJoinPool.invoke(task);
 
         // 打印结果

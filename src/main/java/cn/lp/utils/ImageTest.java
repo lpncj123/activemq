@@ -1,6 +1,7 @@
 package cn.lp.utils;
 
-import sun.misc.BASE64Encoder;
+import java.util.Arrays;
+import java.util.Base64;
 
 import java.io.*;
 import java.net.URL;
@@ -19,8 +20,8 @@ public class ImageTest {
         }
         fos.flush();
         byte[] bytes = fos.toByteArray();
-        BASE64Encoder encoder = new BASE64Encoder();
-        String encodeStr = encoder.encode(bytes);
+        Base64.Encoder encoder = Base64.getEncoder();
+        String encodeStr = Arrays.toString(encoder.encode(bytes));
         System.out.println(encodeStr);
         dis.close();
         fos.close();

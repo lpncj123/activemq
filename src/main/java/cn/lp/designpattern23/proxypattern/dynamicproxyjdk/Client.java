@@ -1,4 +1,4 @@
-package cn.lp.designpattern23.proxypattern.dynamicproxy;
+package cn.lp.designpattern23.proxypattern.dynamicproxyjdk;
 
 public class Client {
     public static void main(String[] args) {

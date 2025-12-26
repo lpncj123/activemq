@@ -19,26 +19,53 @@ public class OneToHundred {
         new Thread(new seq(2), "C").start();
     }
 
-    static class seq implements Runnable {
+//    static class seq implements Runnable {
+//        private final int index;
+//
+//        public seq(int index) {
+//            this.index = index;
+//        }
+//
+//        @Override
+//        public void run() {
+//            while (count < MAX) {
+//                synchronized (lock) {
+//                    while (count % 3 != index) {
+//                        try {
+//                            lock.wait();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    if (count <= MAX) {
+//                        System.out.println(Thread.currentThread().getName() + ":" + count);
+//                    }
+//                    count++;
+//                    lock.notifyAll();
+//                }
+//            }
+//        }
+//    }
+    static class seq implements Runnable{
         private final int index;
 
-        public seq(int index) {
-            this.index = index;
-        }
+    seq(int index) {
+        this.index = index;
+    }
 
-        @Override
+    @Override
         public void run() {
-            while (count < MAX) {
-                synchronized (lock) {
-                    while (count % 3 != index) {
+            while(count<MAX){
+                synchronized (lock){
+                    while(count % 3 != index){
                         try {
                             lock.wait();
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            throw new RuntimeException(e);
                         }
                     }
-                    if (count <= MAX) {
-                        System.out.println(Thread.currentThread().getName() + ":" + count);
+                    if(count<=MAX){
+                        System.out.println(Thread.currentThread().getName()+":"+count);
                     }
                     count++;
                     lock.notifyAll();
