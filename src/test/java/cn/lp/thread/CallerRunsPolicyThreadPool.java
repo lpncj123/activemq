@@ -54,7 +54,6 @@ public class CallerRunsPolicyThreadPool {
             System.out.println(o);
         } catch (ExecutionException e) {
             System.out.println("捕获到异常: " + e.getCause().getMessage());
-
         }
 
         Thread t1 = new Thread(() -> {
